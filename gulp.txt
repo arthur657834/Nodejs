@@ -1,0 +1,148 @@
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.26.1/install.sh | bash
+nvm ls-remote #查看可安装版本
+nvm install v4.2.1
+nvm use v4.2.1
+nvm ls
+
+指定默认nodejs,不然重新打开shell会找不到node命令
+nvm alias default v4.2.1
+
+npm init #first step 
+npm install express #安装模块
+ --save 安装依赖的同时，自动把这些依赖写入 package.json,多dependencies 字段
+ --registry 指定安装源
+npm list #查看已安装模块
+
+gulp.task(name, fn)这个你应经见过了
+
+gulp.run(tasks...)尽可能多的并行运行多个task
+
+gulp.watch(glob, fn)当glob内容发生改变时，执行fn
+
+gulp.src(glob)返回一个可读的stream,多个文件以数组的形式[main.scss, vender.scss]
+
+gulp.dest(glob)返回一个可写的stream
+
+js/app.js：指定确切的文件名。
+js/*.js：某个目录所有后缀名为js的文件。
+js/**/*.js：某个目录及其所有子目录中的所有后缀名为js的文件。
+!js/app.js：除了js/app.js以外的所有文件。
+*.+(js|css)：匹配项目根目录下，所有后缀名为js或css的文件
+
+gulp-rename #重命名
+gulp-watch #用于指定需要监视的文件。一旦这些文件发生变动，就运行指定任务
+gulp-uglify #压缩源码
+gulp-ruby-sass  #sass的编译
+gulp-autoprefixer  #自动添加css前缀
+gulp-minify-css  #压缩css
+gulp-jshint  #js代码校验
+gulp-concat  #合并js文件
+gulp-uglify  #压缩js代码
+gulp-imagemin  #压缩图片
+gulp-livereload  #自动刷新页面
+gulp-cache  #只有图片替换了才压缩,图片缓存
+gulp-notify  #更改提醒
+del #清除文件 
+
+
+样例代码1：
+var gulp = require('gulp');
+    uglify = require('gulp-uglify'),
+    rename = require('gulp-rename')
+    watch = require('gulp-watch')
+
+//默认执行default任务，并执行监听任务
+gulp.task('default', ['watch'], function() { 
+    // gulp.start('styles', 'scripts', 'images');
+});
+
+//watch任务：侦听js文件执行 build 任务
+gulp.task('watch', function () {
+   gulp.watch('src/*.js', ['build']);//侦听js文件执行 build 任务
+});
+
+//build任务：压缩js | js重命名 | 压缩
+gulp.task('build', function() { 
+    gulp.src('./src/iNotify.js')
+        .pipe(uglify())
+        .pipe(rename({
+            extname:'.min.js'
+        }))
+        .pipe(gulp.dest('./build/'));
+});
+
+样例代码2：
+/*!
+ * gulp
+ * $ npm install gulp-ruby-sass gulp-autoprefixer gulp-minify-css gulp-jshint gulp-concat gulp-uglify gulp-imagemin gulp-notify gulp-rename gulp-livereload gulp-cache del --save-dev
+ */
+// Load plugins
+var gulp = require('gulp'),
+    sass = require('gulp-ruby-sass'),
+    autoprefixer = require('gulp-autoprefixer'),
+    minifycss = require('gulp-minify-css'),
+    jshint = require('gulp-jshint'),
+    uglify = require('gulp-uglify'),
+    imagemin = require('gulp-imagemin'),
+    rename = require('gulp-rename'),
+    concat = require('gulp-concat'),
+    notify = require('gulp-notify'),
+    cache = require('gulp-cache'),
+    livereload = require('gulp-livereload'),
+    del = require('del');
+// Styles
+gulp.task('styles', function() {
+  return gulp.src('src/styles/main.scss')
+    .pipe(sass({ style: 'expanded', }))
+    .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+    .pipe(gulp.dest('dist/styles'))
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(minifycss())
+    .pipe(gulp.dest('dist/styles'))
+    .pipe(notify({ message: 'Styles task complete' }));
+});
+// Scripts
+gulp.task('scripts', function() {
+  return gulp.src('src/scripts/**/*.js')
+    .pipe(jshint('.jshintrc'))
+    .pipe(jshint.reporter('default'))
+    .pipe(concat('main.js'))
+    .pipe(gulp.dest('dist/scripts'))
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(uglify())
+    .pipe(gulp.dest('dist/scripts'))
+    .pipe(notify({ message: 'Scripts task complete' }));
+});
+// Images
+gulp.task('images', function() {
+  return gulp.src('src/images/**/*')
+    .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
+    .pipe(gulp.dest('dist/images'))
+    .pipe(notify({ message: 'Images task complete' }));
+});
+// Clean
+gulp.task('clean', function(cb) {
+    del(['dist/assets/css', 'dist/assets/js', 'dist/assets/img'], cb)
+});
+// Default task
+gulp.task('default', ['clean'], function() {
+    gulp.start('styles', 'scripts', 'images');
+});
+// Watch
+gulp.task('watch', function() {
+  // Watch .scss files
+  gulp.watch('src/styles/**/*.scss', ['styles']);
+  // Watch .js files
+  gulp.watch('src/scripts/**/*.js', ['scripts']);
+  // Watch image files
+  gulp.watch('src/images/**/*', ['images']);
+  // Create LiveReload server
+  livereload.listen();
+  // Watch any files in dist/, reload on change
+  gulp.watch(['dist/**']).on('change', livereload.changed);
+});
+
+.pipe(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true }))
+optimizationLevel: 3  #所有图片（文件）进行压缩 //类型：Number  默认：3  取值范围：0-7（优化等级）
+
+
