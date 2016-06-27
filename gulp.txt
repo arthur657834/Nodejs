@@ -1,148 +1,104 @@
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.26.1/install.sh | bash
-nvm ls-remote #查看可安装版本
-nvm install v4.2.1
-nvm use v4.2.1
-nvm ls
-
-指定默认nodejs,不然重新打开shell会找不到node命令
-nvm alias default v4.2.1
-
-npm init #first step 
-npm install express #安装模块
- --save 安装依赖的同时，自动把这些依赖写入 package.json,多dependencies 字段
- --registry 指定安装源
-npm list #查看已安装模块
-
-gulp.task(name, fn)这个你应经见过了
-
-gulp.run(tasks...)尽可能多的并行运行多个task
-
-gulp.watch(glob, fn)当glob内容发生改变时，执行fn
-
-gulp.src(glob)返回一个可读的stream,多个文件以数组的形式[main.scss, vender.scss]
-
-gulp.dest(glob)返回一个可写的stream
-
-js/app.js：指定确切的文件名。
-js/*.js：某个目录所有后缀名为js的文件。
-js/**/*.js：某个目录及其所有子目录中的所有后缀名为js的文件。
-!js/app.js：除了js/app.js以外的所有文件。
-*.+(js|css)：匹配项目根目录下，所有后缀名为js或css的文件
-
-gulp-rename #重命名
-gulp-watch #用于指定需要监视的文件。一旦这些文件发生变动，就运行指定任务
-gulp-uglify #压缩源码
-gulp-ruby-sass  #sass的编译
-gulp-autoprefixer  #自动添加css前缀
-gulp-minify-css  #压缩css
-gulp-jshint  #js代码校验
-gulp-concat  #合并js文件
-gulp-uglify  #压缩js代码
-gulp-imagemin  #压缩图片
-gulp-livereload  #自动刷新页面
-gulp-cache  #只有图片替换了才压缩,图片缓存
-gulp-notify  #更改提醒
-del #清除文件 
-
-
-样例代码1：
-var gulp = require('gulp');
-    uglify = require('gulp-uglify'),
-    rename = require('gulp-rename')
-    watch = require('gulp-watch')
-
-//默认执行default任务，并执行监听任务
-gulp.task('default', ['watch'], function() { 
-    // gulp.start('styles', 'scripts', 'images');
-});
-
-//watch任务：侦听js文件执行 build 任务
-gulp.task('watch', function () {
-   gulp.watch('src/*.js', ['build']);//侦听js文件执行 build 任务
-});
-
-//build任务：压缩js | js重命名 | 压缩
-gulp.task('build', function() { 
-    gulp.src('./src/iNotify.js')
-        .pipe(uglify())
-        .pipe(rename({
-            extname:'.min.js'
-        }))
-        .pipe(gulp.dest('./build/'));
-});
-
-样例代码2：
-/*!
- * gulp
- * $ npm install gulp-ruby-sass gulp-autoprefixer gulp-minify-css gulp-jshint gulp-concat gulp-uglify gulp-imagemin gulp-notify gulp-rename gulp-livereload gulp-cache del --save-dev
- */
-// Load plugins
-var gulp = require('gulp'),
-    sass = require('gulp-ruby-sass'),
-    autoprefixer = require('gulp-autoprefixer'),
-    minifycss = require('gulp-minify-css'),
-    jshint = require('gulp-jshint'),
-    uglify = require('gulp-uglify'),
-    imagemin = require('gulp-imagemin'),
-    rename = require('gulp-rename'),
-    concat = require('gulp-concat'),
-    notify = require('gulp-notify'),
-    cache = require('gulp-cache'),
-    livereload = require('gulp-livereload'),
-    del = require('del');
-// Styles
-gulp.task('styles', function() {
-  return gulp.src('src/styles/main.scss')
-    .pipe(sass({ style: 'expanded', }))
-    .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-    .pipe(gulp.dest('dist/styles'))
-    .pipe(rename({ suffix: '.min' }))
-    .pipe(minifycss())
-    .pipe(gulp.dest('dist/styles'))
-    .pipe(notify({ message: 'Styles task complete' }));
-});
-// Scripts
-gulp.task('scripts', function() {
-  return gulp.src('src/scripts/**/*.js')
-    .pipe(jshint('.jshintrc'))
-    .pipe(jshint.reporter('default'))
-    .pipe(concat('main.js'))
-    .pipe(gulp.dest('dist/scripts'))
-    .pipe(rename({ suffix: '.min' }))
-    .pipe(uglify())
-    .pipe(gulp.dest('dist/scripts'))
-    .pipe(notify({ message: 'Scripts task complete' }));
-});
-// Images
-gulp.task('images', function() {
-  return gulp.src('src/images/**/*')
-    .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
-    .pipe(gulp.dest('dist/images'))
-    .pipe(notify({ message: 'Images task complete' }));
-});
-// Clean
-gulp.task('clean', function(cb) {
-    del(['dist/assets/css', 'dist/assets/js', 'dist/assets/img'], cb)
-});
-// Default task
-gulp.task('default', ['clean'], function() {
-    gulp.start('styles', 'scripts', 'images');
-});
-// Watch
-gulp.task('watch', function() {
-  // Watch .scss files
-  gulp.watch('src/styles/**/*.scss', ['styles']);
-  // Watch .js files
-  gulp.watch('src/scripts/**/*.js', ['scripts']);
-  // Watch image files
-  gulp.watch('src/images/**/*', ['images']);
-  // Create LiveReload server
-  livereload.listen();
-  // Watch any files in dist/, reload on change
-  gulp.watch(['dist/**']).on('change', livereload.changed);
-});
-
-.pipe(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true }))
-optimizationLevel: 3  #所有图片（文件）进行压缩 //类型：Number  默认：3  取值范围：0-7（优化等级）
-
-
+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
