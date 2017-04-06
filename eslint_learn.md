@@ -1,27 +1,31 @@
-npm --save-dev install eslint 
+npm --save-dev install eslint
 
 eslint --init
 
-#配置文件
+### 配置文件
 eslint -c ~/my-eslint.json file.js
 
 eslint --env browser,node file.js
 
 eslint --ext .js,.js2
 
-#报告格式eslint提供了"stylish" (默认项), "compact", "checkstyle"（checkstyle格式的xml报告）, "jslint-xml"（jslint格式的xml报告）, "junit" （junit格式的xml报告）和"tap"。几种格式的报告格式.
+### 报告格式eslint提供了"stylish" (默认项), "compact", "checkstyle"（checkstyle格式的xml报告）, "jslint-xml"（jslint格式的xml报告）, "junit" （junit格式的xml报告）和"tap"。几种格式的报告格式.
+
 eslint -f compact file.js -o ./test/test.xml
 
 eslint --global require,exports:true file.js
 
-#要告诉webpack我们在构建时使用eslint，安装eslint-loader
+### 要告诉webpack我们在构建时使用eslint，安装eslint-loader
 npm --save-dev install eslint-loader
 
 vi webpack.config.js
+
+````JavaScript
 loaders: ['babel-loader', 'eslint-loader']
+```
 
 .eslintrc
-
+```
 {
     "parserOptions": {
         "ecmaVersion": 6, //指定ECMAScript支持的版本，6为ES6
@@ -31,6 +35,7 @@ loaders: ['babel-loader', 'eslint-loader']
         },
     }
 }
+
 
 {
     "parser": "esprima" //默认，可以设置成babel-eslint，支持jsx
@@ -60,8 +65,8 @@ loaders: ['babel-loader', 'eslint-loader']
         "react"    
      ]
 }
-    
-    
+
+
 0：关闭规则。
 1：打开规则，并且作为一个警告（不影响exit code）。
 2：打开规则，并且作为一个错误（exit code将会是1）。
@@ -84,9 +89,12 @@ npm install pre-commit --save-dev
 "pre-commit": [
   "eslint"
 ]
+```
 
 ex1:
+```
 vi .eslintrc
+
 {
   parser: "babel-eslint",
   "plugins": [
@@ -97,8 +105,9 @@ vi .eslintrc
     "prop-types": [2]
   }
 }
-
+```
 ex2:
+```
 npm --save-dev install eslint-config-airbnb eslint-plugin-import eslint-plugin-jsx-a11y
 vi .eslintrc
 {
@@ -109,7 +118,7 @@ vi .eslintrc
     "prop-types": [2]
   }
 }
-
+```
 ex3:
 module.exports = {
 // 环境定义了预定义的全局变量。更多在官网查看
