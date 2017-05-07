@@ -20,9 +20,25 @@ npm --save-dev install eslint-loader
 
 vi webpack.config.js
 
-````JavaScript
+```JSON
 loaders: ['babel-loader', 'eslint-loader']
+
+preLoaders: [
+    {
+      test: /\.js$/,
+      exclude: /node_modules/,
+      loader: 'eslint-loader'
+    },
+  ],
+  
+eslint: {
+  configFile: './.eslintrc'
+},
+
 ```
+
+
+
 
 .eslintrc
 ```
