@@ -120,6 +120,7 @@ vi .eslintrc
 }
 ```
 ex3:
+```js
 module.exports = {
 // 环境定义了预定义的全局变量。更多在官网查看
 'env': {
@@ -258,3 +259,4 @@ module.exports = {
 'no-use-before-define':2,
  },
 };
+```

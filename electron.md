@@ -11,4 +11,7 @@ npm install --save-dev electron-winstaller
      "create-installer-win": "node installers/windows/createinstaller.js"
  }
  
- 
+electron-packager打包应用：
+    MAC:--icon=./img/1.icns
+    Windowns:--icon=./img/1.ico
+    Linux:--icon=./img/1.ico
