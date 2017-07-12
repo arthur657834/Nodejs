@@ -177,6 +177,7 @@ routes.json
 ```
 访问 /news/1/show 和 topics/1/show 均返回指定的 /news/1 内容。
 
+```
 // 获取图片数量为3，且标签字数为2的新闻
 GET /news?images.length=3&tag.length=2
 
@@ -199,6 +200,7 @@ GET /news/1?_embed=comments
 // 获取包含上级资源的数据, 使用 _expand
 GET /news?_expand=post
 GET /news/1?_expand=post
+```
 
 json server 同样可以作为诸如 Express 之类框架的中间件使用
 
