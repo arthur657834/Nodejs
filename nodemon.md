@@ -2,7 +2,7 @@ https://github.com/remy/nodemon/#usage
 还有一个类似的supervisor
 
 npm install -g nodemon
-
+```json
 {
 	"restartable": "rs",
 	"ignore": [
@@ -22,7 +22,9 @@ npm install -g nodemon
 	},
 	"ext": "js json"
 }
+```
 
+```
 
 restartable:设置重启模式
 
@@ -39,4 +41,4 @@ execMap:设置运行服务的后缀名与对应的命令
 watch:监听哪些文件的变化，当变化的时候自动重启
 
 ext:监控指定的后缀文件名
-
+```
