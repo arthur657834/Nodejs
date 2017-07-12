@@ -73,7 +73,7 @@ db.json
   }
 }
 ```
-
+```
 json-server --watch --port 8888 db.json
 
 http://10.1.50.186:8888/posts
@@ -83,6 +83,7 @@ http://10.1.50.186:8888/posts?_start=0&_end=5
 http://10.1.50.186:8888/posts?_start=0&_limit=5
 /posts?_sort=views&_order=DESC
 /posts/1/comments?_sort=votes&_order=DESC/ASC
+```
 
 jqury往服务器添加数据,其他方法类推
 ```jqury
@@ -113,7 +114,7 @@ module.exports = function() {
 }
 ```
 json-server db.js
-
+```
 数据生成器:
 faker:不但拥有几乎全部常用的数据格式，而且还有中英德法等多种语言的数据。但是在实际测试中发现，faker 对中文数据的支持还是以西方文字为基础，并不能很好的模拟中文
 chance
@@ -123,6 +124,7 @@ npm install mockjs --save
 与某些框架中的路由处理逻辑冲突
 无法定义复杂的数据结构
 无法自定义较为复杂的路由
+```
 
 ```js
 let Mock  = require('mockjs');
